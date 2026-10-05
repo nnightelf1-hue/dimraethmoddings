@@ -16,11 +16,6 @@ jobs:
       with:
         dotnet-version: 8.0.x
 
-    - name: Extract Game Assemblies
-      run: |
-        cd BepInExModsSource/LootModV2
-        unzip -o Managed.zip -d libs
-
     - name: Add BepInEx NuGet Source
       run: dotnet nuget add source https://nuget.bepinex.dev/v3/index.json -n BepInEx
 
