@@ -11,5 +11,10 @@
     <PackageReference Include="BepInEx.Core" Version="5.4.21" />
     <PackageReference Include="HarmonyX" Version="2.10.1" />
     <PackageReference Include="UnityEngine.Modules" Version="2021.3.16" />
+    
+    <!-- ดึงคลาสตัวเกมจากไฟล์ที่เพิ่งอัปโหลด -->
+    <Reference Include="Assembly-CSharp">
+      <HintPath>Assembly-CSharp.dll</HintPath>
+    </Reference>
   </ItemGroup>
 </Project>
