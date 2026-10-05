@@ -1,0 +1,39 @@
+name: Build Mod From Source
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    # 1. โคลนโปรเจกต์ต้นทางของเขาลงมา
+    - name: Clone Original Repository
+      uses: actions/checkout@v4
+      with:
+        repository: 'agungarifr/dimraethmoddings'
+        ref: 'main'
+
+    # 2. ตั้งค่า .NET
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.x
+
+    # 3. เพิ่มแหล่งดาวน์โหลด BepInEx
+    - name: Add BepInEx NuGet Source
+      run: dotnet nuget add source https://nuget.bepinex.dev/v3/index.json -n BepInEx
+
+    # 4. สั่งคอมไพล์เฉพาะโฟลเดอร์ LootModV2
+    - name: Build LootModV2
+      run: |
+        cd BepInExModsSource/LootModV2
+        dotnet build -c Release
+
+    # 5. ดึงไฟล์ .dll ออกมาให้ดาวน์โหลด
+    - name: Upload DLL File
+      uses: actions/upload-artifact@v4
+      with:
+        name: Dimraeth-LootModV2-DLL
+        path: BepInExModsSource/LootModV2/bin/Release/**/*.dll
